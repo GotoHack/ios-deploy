@@ -3,7 +3,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/un.h>
-#include <sys/sysctl.h>
+#include <linux/sysctl.h>
 #include <sys/wait.h>
 #include <errno.h>
 #include <libgen.h>
@@ -2060,10 +2060,9 @@ int main(int argc, char *argv[]) {
         idevice_event_t fake_event;
         fake_event.event = IDEVICE_DEVICE_ADD;
         fake_event.udid = devlist[i];
-        fake_event.conn_type = 1;
+        fake_event.conn_type = CONNECTION_USBMUXD;
         device_callback(&fake_event, NULL);
     }
     if (!found_device)
         timeout_callback();
 }
-
